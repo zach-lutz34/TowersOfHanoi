@@ -1,4 +1,4 @@
-#include "TowersOfHanoi.hpp"
+#include "ToH.hpp"
 #include <string>
 #include <iostream>
 using namespace std;
