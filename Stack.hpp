@@ -1,4 +1,6 @@
 #include "Node.hpp"
+#include <string>
+using namespace std;
 
 class Stack
 {
@@ -7,9 +9,12 @@ class Stack
 
     public:
         Stack();
-        void push(int payload);
-        int pop();
+        void push(Node* newNode);
+        Node* pop();
         int peek();
         void display();
         string displayAtIndex(int index);
+        int findCount();
+        Node* findAtIndex(int index);
+              
 };

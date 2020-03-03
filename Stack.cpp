@@ -1,16 +1,19 @@
 #include "Stack.hpp"
 #include <iostream>
+#include <string>
+using namespace std;
 
 Stack::Stack()
 {
     this->top = 0;
 }
 
-void Stack::push(int payload)
+void Stack::push(Node* newNode)
 {
-    Node* n = new Node(payload);
+    Node* n = newNode;
     if(top)
     {
+        //we have at least one element on our stack
         n->setNextNode(this->top);
         this->top = n;
     }
@@ -18,16 +21,14 @@ void Stack::push(int payload)
     {
         this->top = n;
     }
+    
 }
 
-int Stack::pop()
+Node* Stack::pop()
 {
-    int valueToReturn = this->top->getPayload();
-    Node* temp = this->top;
+    Node* nodeToReturn = this->top;
     top = top->getNextNode();
-    temp->setNextNode(0);
-    delete temp;
-    return valueToReturn;
+    return nodeToReturn;
 }
 
 int Stack::peek()
@@ -54,14 +55,105 @@ void Stack::display()
 
 string Stack::displayAtIndex(int index)
 {
-    Node* currNode = this->top;
-    int indx = index;
-    string a = "";
-    
-    for(int i = 0; i <= indx; i++)
+    int indexOfGrid = index;
+    int itemsInStack = this->findCount();
+    if(itemsInStack == -1)
     {
-        a = currNode->makeStringDisk();
-        currNode = currNode->getNextNode();
+        string space = "     ";
+        return space;
     }
-    return a;
+    if(itemsInStack == 0)
+    {
+        if(indexOfGrid == 2)
+        {
+            string disc = this->findAtIndex(0)->makeStringDisk();
+            return disc;
+        }
+        else
+        {
+            string space = "     ";
+            return space;
+        }
+        
+    }
+    if(itemsInStack == 1)
+    {
+        if(indexOfGrid == 1)
+        {
+            string disc = this->findAtIndex(0)->makeStringDisk();
+            return disc;
+        }
+        else if(indexOfGrid == 2)
+        {
+            string disc = this->findAtIndex(1)->makeStringDisk();
+            return disc;
+        }
+        else
+        {
+            string space = "     ";
+            return space;
+        }
+        
+    }
+    if(itemsInStack == 2)
+    {
+        if(indexOfGrid == 0)
+        {
+            string disc = this->findAtIndex(0)->makeStringDisk();
+            return disc;
+        }
+        else if(indexOfGrid == 1)
+        {
+            string disc = this->findAtIndex(1)->makeStringDisk();
+            return disc;
+        }
+        else
+        {
+            string disc = this->findAtIndex(2)->makeStringDisk();
+            return disc;
+        }
+    }
+}
+
+int Stack::findCount()
+{
+    int count = -1;
+    if(this->top->getPayload() < 5)
+    {
+        Node* currNode = this->top;
+        while(currNode)
+        {
+            if(currNode->getPayload() < 5)
+            {
+                count = count + 1;
+                currNode = currNode->getNextNode();
+            }
+            else
+            {
+                return count;
+            }
+        }
+        return count;
+    }
+    else
+    {
+        return count;
+    }
+}
+
+Node* Stack::findAtIndex(int index)
+{
+    Node* currNode = this->top;
+    if(index == 0)
+    {
+        return currNode;
+    }
+    else
+    {
+        for(int i = 0; i < index; i++)
+        {
+            currNode = currNode->getNextNode();
+        }
+        return currNode;
+    }
 }

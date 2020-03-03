@@ -1,4 +1,6 @@
 #include "Node.hpp"
+#include <string>
+using namespace std;
 
 Node::Node(int payload)
 {
@@ -21,37 +23,42 @@ Node* Node::getNextNode()
     return this->nextNode;
 }
 
-
-string Node::mkDisk()
+string Node::makeStringDisk()
 {
-    string s = this->sMaker();
+    string space = this->spaceMaker();
     string disc = "";
     int payload = this->getPayload();
-    if(payload != 0)
+    if(payload > 0 and payload < 5)
     {    
         for(int i = 0; i < payload; i++)
         {
             disc = disc + "=";
         }
-        disc = disc + s;
+        disc = disc + space;
         return disc;
     }
 
     else
     {
-        disc = disc + space;
+        disc = space;
         return disc;
     }
 }
 
-string Node::sMaker()
+string Node::spaceMaker()
 {
-    string s = "";
+    string space = "";
     int a = this->getPayload();
+    if(a == 5)
+    {
+        space = "     ";
+        return space;
+    }
+
     int b = -a + 5;
     for(int i = 1; i <= b; i++)
     {
-        s = s + " ";
+        space = space + " ";
     }
-    return s;
+    return space;
 }
